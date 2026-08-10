@@ -1,0 +1,172 @@
+filters:
+  and:
+    - type == "dive_log"
+formulas:
+  max_depth_label: if(max_depth, max_depth + " m", "")
+  air_used: if(back_start && back_end, back_start - back_end, "")
+  runtime_avg: total_time
+  data_it: if(note.date, note.date.format("DD/MM/YYYY"), "")
+properties:
+  dive_number:
+    displayName: "#"
+  formula.data_it:
+    displayName: Data
+  site:
+    displayName: Sito
+  buddy:
+    displayName: Buddy
+  guided:
+    displayName: Guida
+  max_depth:
+    displayName: Max (m)
+  avg_depth:
+    displayName: Avg (m)
+  total_time:
+    displayName: Durata (min)
+  dive_type:
+    displayName: Tipo
+  entry:
+    displayName: Ingresso
+  visibility:
+    displayName: Viz (m)
+  current:
+    displayName: Corrente
+  sea:
+    displayName: Mare
+  weather:
+    displayName: Meteo
+  temp_surface:
+    displayName: T sup (°C)
+  temp_bottom:
+    displayName: T fondo (°C)
+  suit:
+    displayName: Muta
+  undersuit:
+    displayName: Sottomuta
+  weight_keel:
+    displayName: Zav fondo (kg)
+  weight_belt:
+    displayName: Cintura (kg)
+  weight_pocket:
+    displayName: Tasche (kg)
+  weight_trim:
+    displayName: Trim (kg)
+  weight_total:
+    displayName: Zavorra tot (kg)
+  back_mix:
+    displayName: Mix back
+  back_start:
+    displayName: PI back (bar)
+  back_end:
+    displayName: PF back (bar)
+  tank_volume:
+    displayName: Vol (L)
+  tank_type:
+    displayName: Tipo bombola
+  tank_configuration:
+    displayName: Config
+  formula.air_used:
+    displayName: Back usato (bar)
+  formula.runtime_avg:
+    displayName: Run time medio (min)
+  rmv:
+    displayName: RMV (L/min)
+views:
+  - type: table
+    name: Tutte le dive
+    order:
+      - dive_number
+      - formula.data_it
+      - site
+      - dive_type
+      - max_depth
+      - avg_depth
+      - total_time
+      - rmv
+      - entry
+    summaries:
+      max_depth: Max
+      avg_depth: Average
+      total_time: Sum
+      rmv: Average
+      dive_number: Filled
+  - type: table
+    name: Per sito
+    groupBy:
+      property: site
+      direction: ASC
+    order:
+      - dive_number
+      - formula.data_it
+      - max_depth
+      - total_time
+      - rmv
+      - visibility
+    summaries:
+      max_depth: Max
+      rmv: Average
+      dive_number: Filled
+  - type: table
+    name: Condizioni
+    order:
+      - dive_number
+      - formula.data_it
+      - site
+      - visibility
+      - current
+      - sea
+      - temp_surface
+      - temp_bottom
+      - weather
+  - type: table
+    name: Configurazione e pesata
+    order:
+      - dive_number
+      - formula.data_it
+      - site
+      - suit
+      - undersuit
+      - weight_keel
+      - weight_belt
+      - weight_pocket
+      - weight_trim
+      - weight_total
+      - max_depth
+  - type: table
+    name: Gas e consumi
+    order:
+      - dive_number
+      - formula.data_it
+      - site
+      - max_depth
+      - back_mix
+      - tank_configuration
+      - back_start
+      - back_end
+      - formula.air_used
+      - rmv
+  - type: table
+    name: Riassunto per tipo
+    groupBy:
+      property: dive_type
+      direction: ASC
+    order:
+      - dive_number
+      - formula.data_it
+      - site
+      - max_depth
+      - avg_depth
+      - total_time
+    summaries:
+      dive_number: Filled
+      total_time: Sum
+      formula.runtime_avg: Average
+      avg_depth: Average
+      max_depth: Max
+  - type: cards
+    name: Galleria
+    order:
+      - file.name
+      - formula.data_it
+      - site
+      - max_depth

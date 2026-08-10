@@ -1,0 +1,6 @@
+# Obsidian workspace/local state — non va condiviso tra utenti diversi
+.obsidian/workspace*
+.obsidian/cache
+.trash/
+
+.DS_Store
