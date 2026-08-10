@@ -4,16 +4,18 @@ Ogni immersione è un file di testo: in testa il frontmatter YAML con i dati
 strutturati (profondità, gas, pesata, condizioni), sotto lo spazio per
 raccontarla. Un file `.base` legge tutti i file della cartella e ne tira
 fuori tabelle ordinabili e statistiche aggregate, senza fogli di calcolo
-appesi da qualche parte.
+appesi da qualche parte. Ricorda: __Excel e' il male__.
 
 ## Perché markdown
 
-Perché è testo, e il testo lo modifica chiunque: tu a mano dal telefono, un
-assistente AI a cui detti l'immersione mentre risciacqui l'attrezzatura, uno
-script che pesca i numeri dall'export di Subsurface. Nessun formato
+Perché è testo, e lo puoi modificare come vuoi e ne mantieni il controllo.
+E lo puoi dare in pasto ad un assistente AI, che sono il male pure loro ma tant'è.
+Ad esempio puoi creare uno script che pesca i numeri dall'export di Subsurface. Nessun formato
 proprietario, nessun database che fra cinque anni non si apre più, nessuna
 app da cui esportare pregando che l'export sia decente.
 
+Perché? Perché immersioni diverse -> equipaggiamento diverso e vatti a ricordare 
+la pesata.
 Il vantaggio pratico si vede sui valori derivati. RMV, pesata, consumi non
 sono numeri congelati dentro un'applicazione: sono campi che riscrivi. Se ti
 accorgi che il volume bombola impostato sul computer era sbagliato, o che la
@@ -68,28 +70,15 @@ di carriera: se tieni un libretto cartaceo, tienili allineati.
 Copia il template adatto dentro `Dives/` — `Dive_Template_Rec.md` per le
 ricreative, `Dive_Template_Tec.md` se c'è deco da annotare — e compila.
 
-Non esiste un ordine obbligato né un numero giusto di sedute. Puoi chiudere
-tutto in barca col telefono mentre ti asciughi, oppure buttare giù quattro
-numeri lì e riprendere a casa davanti al profilo scaricato, o tornarci sopra
-tre volte in tre giorni. I campi vuoti non rompono niente: le viste mostrano
-quello che c'è.
-
-Detto questo, alcune cose in barca le segni e basta, perché stasera non te le
-ricordi già più: `time_in` / `time_out`, pressioni di partenza e arrivo,
-`max_depth`, com'era il mare e la visibilità, e due righe in
-`## Note generali` finché l'immersione è fresca. Il resto — `avg_depth`,
-`total_time`, pesata, `## Drill`, `## Lezioni apprese`, la sezione `## Tec` —
-si fa meglio con calma.
-
+I campi vuoti non rompono niente: le viste mostrano
+quello che c'è. Può anche essere usata come promemoria / programma se fai una
+sessione di addestramento, compilandola in parte in anticipo.
 Perché l'immersione compaia nelle viste servono almeno `type: dive_log`,
 `date`, `dive_number`, `site`, `max_depth`, `total_time`.
 
 ## Regole del frontmatter
 
-Poche, ma se le violi il `.base` smette di funzionare in modi poco ovvi:
-
-- **Numeri nudi**: `max_depth: 17.7` ✓ — non `"17.7"` (diventa stringa e
-  salta ogni statistica) né `17.7 m` (l'unità non ci va, mai).
+- **Numeri nudi**: senza unità di misura; ed in ogni caso si usa solo il sistema internazionale.
 - **`snake_case`**: `max_depth`, non `Max Depth`. Il `.base` cerca il nome
   esatto.
 - **Wikilink fra virgolette**: se `site` punta a una nota,
@@ -179,7 +168,7 @@ uguali, quindi ne crei una copia con un altro nome.
 
 ## Nota
 
-Questo è un registro, non uno strumento di pianificazione. Non calcola deco,
+Questo è un registro, __non uno strumento di pianificazione__. Non calcola deco,
 non sostituisce il computer subacqueo e non controlla in alcun modo la
 sensatezza di quello che ci scrivi dentro.
 
