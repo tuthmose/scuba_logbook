@@ -83,12 +83,14 @@ views:
       - avg_depth
       - total_time
       - rmv
+      - weight_total
       - entry
     summaries:
       max_depth: Max
       avg_depth: Average
       total_time: Sum
       rmv: Average
+      weight_total: Average
       dive_number: Filled
   - type: table
     name: Per sito
