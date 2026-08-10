@@ -178,3 +178,8 @@ Questo strumento non calcola piani di decompressione, non sostituisce un
 computer subacqueo e non fa alcun controllo di sicurezza sui dati inseriti:
 è solo un registro strutturato. Usalo come diario, non come strumento di
 pianificazione immersioni.
+
+## Licenza
+
+[CC0 1.0 Universal](LICENSE) — pubblico dominio, nessuna attribuzione
+richiesta. Usa, modifica e ridistribuisci liberamente.
