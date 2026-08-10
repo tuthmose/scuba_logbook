@@ -1,124 +1,143 @@
 # Logbook — registro immersioni in markdown
 
-Un logbook per subacquei basato su file markdown + [Obsidian](https://obsidian.md),
-pensato per essere compilato in barca dal cellulare e consolidato a casa.
-Ogni dive è una nota, con frontmatter strutturato (profondità, gas, pesata,
-condizioni...) e un file `.base` che genera tabelle e statistiche aggregate
-in automatico, senza bisogno di fogli di calcolo esterni.
+Ogni immersione è un file di testo: in testa il frontmatter YAML con i dati
+strutturati (profondità, gas, pesata, condizioni), sotto lo spazio per
+raccontarla. Un file `.base` legge tutti i file della cartella e ne tira
+fuori tabelle ordinabili e statistiche aggregate, senza fogli di calcolo
+appesi da qualche parte.
 
-Questa cartella è uno strumento autonomo, pensato per essere condiviso (es.
-su GitHub) senza portarsi dietro nessun altro contenuto personale.
+## Perché markdown
 
-## Requisiti
+Perché è testo, e il testo lo modifica chiunque: tu a mano dal telefono, un
+assistente AI a cui detti l'immersione mentre risciacqui l'attrezzatura, uno
+script che pesca i numeri dall'export di Subsurface. Nessun formato
+proprietario, nessun database che fra cinque anni non si apre più, nessuna
+app da cui esportare pregando che l'export sia decente.
 
-- [Obsidian](https://obsidian.md) (gratuito)
-- Plugin core **Bases** abilitato: `Impostazioni → Core plugins → Bases`
-  (incluso in Obsidian dalla v1.9+; se non lo vedi, aggiorna Obsidian)
+Il vantaggio pratico si vede sui valori derivati. RMV, pesata, consumi non
+sono numeri congelati dentro un'applicazione: sono campi che riscrivi. Se ti
+accorgi che il volume bombola impostato sul computer era sbagliato, o che la
+pesata di quel giorno andava letta diversamente, correggi il campo e tutte
+le viste si riallineano da sole. Lo stesso vale per i confronti a posteriori
+— quanto consumo davvero con la 15 L rispetto alla 12, come cambia la
+zavorra fra umida e stagna — che sono la ragione per cui uno tiene un
+logbook invece di fidarsi della memoria.
+
+## Serve Obsidian?
+
+No, ma aiuta parecchio.
+
+I file sono markdown normale: si aprono e si modificano con qualsiasi
+editor, incluso quello del telefono, e si versionano con git.
+
+Con [Obsidian](https://obsidian.md) (gratuito) ci guadagni le tabelle live,
+le statistiche aggregate e i collegamenti fra note — cioè il motivo per cui
+il frontmatter è strutturato così. Serve il plugin core **Bases** attivo
+(`Impostazioni → Plugin core → Bases`, incluso dalla v1.9 in poi).
 
 ## Setup
 
-1. Scarica/clona questa cartella (`Logbook/`) da qualche parte sul tuo disco.
-2. In Obsidian: `Apri cartella come vault` → seleziona `Logbook/`.
-   In alternativa, se hai già un vault tuo, copia l'intera cartella
-   `Logbook/` dentro il vault esistente.
-3. Apri `Logbook.md`: dovresti vedere la tabella live generata da
-   `Logbook.base` con la dive di esempio già dentro.
-4. Cancella o modifica la dive di esempio in `Dives/` quando sei pronto a
-   registrare le tue.
+1. Clona o scarica questa cartella.
+2. In Obsidian: `Apri cartella come vault` → seleziona `Logbook/`. Se hai già
+   un vault tuo, copiaci dentro l'intera cartella.
+3. Apri `Logbook.md`: trovi la tabella generata da `Logbook.base`, con dentro
+   l'immersione di esempio.
+4. Quando sei pronto, cancella l'esempio e comincia con le tue.
 
 ## Layout
 
 ```
 Logbook/
-├── Logbook.md               # MOC: indice + vista embed del .base
+├── Logbook.md                # Indice + vista embed del .base
 ├── Logbook.base              # Definisce le viste (tabelle, gallerie, summaries)
 ├── _templates/
-│   ├── Dive_Template_Rec.md  # Dive ricreativa (no sezione Tec)
-│   └── Dive_Template_Tec.md  # Dive tecnica (include Piano deco + Soste effettive)
+│   ├── Dive_Template_Rec.md  # Ricreativa (senza sezione Tec)
+│   └── Dive_Template_Tec.md  # Tecnica (con Piano deco + Soste effettive)
 └── Dives/
-    ├── YYYY-MM-DD_Sito.md          # 1 dive nella giornata
-    ├── YYYY-MM-DD_Sito_1.md        # più dive nella giornata
+    ├── YYYY-MM-DD_Sito.md    # una sola immersione in giornata
+    ├── YYYY-MM-DD_Sito_1.md  # più immersioni nella stessa giornata
     └── YYYY-MM-DD_Sito_2.md
 ```
 
-## Convenzioni di naming
+Nomi file `YYYY-MM-DD_Sito.md`, underscore al posto degli spazi, suffisso
+progressivo se in giornata ne fai più di una. `dive_number` è il progressivo
+di carriera: se tieni un libretto cartaceo, tienili allineati.
 
-- File: `YYYY-MM-DD_Sito.md`, **underscore al posto degli spazi** negli
-  spazi dei nomi.
-- Più dive nella stessa giornata: suffisso progressivo `_1`, `_2`, ...
-- `dive_number`: progressivo reale di carriera (allinealo al tuo libretto
-  cartaceo se ne tieni uno).
+## Aggiungere un'immersione
 
-## Filosofia di compilazione
+Copia il template adatto dentro `Dives/` — `Dive_Template_Rec.md` per le
+ricreative, `Dive_Template_Tec.md` se c'è deco da annotare — e compila.
 
-Il frontmatter è pensato per essere compilato in **due fasi**:
+Non esiste un ordine obbligato né un numero giusto di sedute. Puoi chiudere
+tutto in barca col telefono mentre ti asciughi, oppure buttare giù quattro
+numeri lì e riprendere a casa davanti al profilo scaricato, o tornarci sopra
+tre volte in tre giorni. I campi vuoti non rompono niente: le viste mostrano
+quello che c'è.
 
-**In barca dal cellulare** — i dati raw che si raccolgono lì:
-- `date`, `site`, `buddy` (solo se buddy ricorrente, altrimenti vuoto),
-  `guided` (true se segui una guida), `dive_type`, `entry`
-- `time_in`, `time_out`, `max_depth`
-- `back_mix`, `back_start`, `back_end`, `tank_volume`, `tank_type`,
-  `tank_configuration`
-- `visibility`, `current`, `sea`, `weather`, `temp_surface`, `temp_bottom`
-- 2-3 righe in `## Note generali`, eventuali `## Animali e note`
+Detto questo, alcune cose in barca le segni e basta, perché stasera non te le
+ricordi già più: `time_in` / `time_out`, pressioni di partenza e arrivo,
+`max_depth`, com'era il mare e la visibilità, e due righe in
+`## Note generali` finché l'immersione è fresca. Il resto — `avg_depth`,
+`total_time`, pesata, `## Drill`, `## Lezioni apprese`, la sezione `## Tec` —
+si fa meglio con calma.
 
-**Post-dive a casa** — consolidamento col computer scaricato:
-- `avg_depth`, `total_time`
-- Pesata (`weight_*`), undersuit, fins, gloves
-- Sezione `## Tec` (piano deco + soste effettive, **solo per dive tec** —
-  usa il template `Dive_Template_Tec.md`)
-- `## Drill`, `## Note attrezzatura`, `## Lezioni apprese`
-- `rmv` e altri derivati: calcolali a parte (script/foglio) e riportali nel
-  campo, non serve una formula live nel frontmatter
+Perché l'immersione compaia nelle viste servono almeno `type: dive_log`,
+`date`, `dive_number`, `site`, `max_depth`, `total_time`.
 
-## Aggiungere una nuova dive
+## Regole del frontmatter
 
-1. **Crea il file** in `Dives/` copiando il template adatto:
-   - `_templates/Dive_Template_Rec.md` per dive ricreative
-   - `_templates/Dive_Template_Tec.md` per dive tec con deco (Piano deco +
-     Soste effettive nel body)
-2. **Compila il frontmatter** secondo la filosofia sopra. Campi minimi per
-   comparire nelle viste: `type: dive_log`, `date`, `dive_number`, `site`,
-   `max_depth`, `total_time`.
-3. **Wikilink in stringhe**: se `site` punta a una nota (es. una scheda del
-   sito), va tra virgolette: `site: "[[Sito|Nome]]"` (virgolette
-   obbligatorie, altrimenti YAML rompe). Altrimenti va bene testo semplice:
-   `site: Secca Esempio`.
-4. **Numerici senza virgolette e senza unità**: `max_depth: 17.7` ✓,
-   `max_depth: "17.7"` ✗ (quotato → trattato come stringa, summaries e
-   formule non funzionano), `max_depth: 17.7 m` ✗.
-5. **Verifica** che la nuova dive compaia nelle viste del `Logbook.base`.
+Poche, ma se le violi il `.base` smette di funzionare in modi poco ovvi:
 
-> [!warning] snake_case obbligatorio
-> I nomi proprietà nel frontmatter usano `snake_case` (`max_depth`, non
-> `Max Depth`). Il `.base` referenzia per quel nome esatto.
-
-> [!warning] Niente struct nested nel frontmatter
-> La Properties UI di Obsidian gestisce male oggetti annidati e liste di
-> oggetti. Tenere il frontmatter **flat**: scalari (string, number, boolean)
-> o liste di stringhe. Per dati strutturati (drill praticati, piano deco,
-> gas log) usa sezioni body in markdown, come già fanno i template.
+- **Numeri nudi**: `max_depth: 17.7` ✓ — non `"17.7"` (diventa stringa e
+  salta ogni statistica) né `17.7 m` (l'unità non ci va, mai).
+- **`snake_case`**: `max_depth`, non `Max Depth`. Il `.base` cerca il nome
+  esatto.
+- **Wikilink fra virgolette**: se `site` punta a una nota,
+  `site: "[[Sito|Nome]]"`. Senza virgolette YAML si arrabbia. Testo semplice
+  (`site: Secca Esempio`) va benissimo lo stesso.
+- **Niente strutture annidate**: solo scalari e liste di stringhe. La
+  Properties UI di Obsidian gestisce male oggetti dentro oggetti. Per i dati
+  strutturati (piano deco, drill, gas log) ci sono le sezioni nel body, come
+  già fanno i template.
 
 ## Le viste del `Logbook.base`
 
 | Vista | Per cosa |
 |---|---|
-| **Tutte le dive** | overview cronologica, buddy/guided, max depth, count, BT cumulato |
-| **Per sito** | groupBy sito, statistiche per spot |
+| **Tutte le dive** | overview cronologica, profondità, conteggio, bottom time cumulato |
+| **Per sito** | raggruppate per spot, con statistiche per posto |
 | **Condizioni** | meteo, mare, visibilità, temperature |
-| **Configurazione e pesata** | muta/sottomuta/zavorra per analizzare la pesata |
-| **Gas e consumi** | back mix + aria usata (`back_start - back_end`) |
-| **Riassunto per tipo** | groupBy `dive_type`: count, BT totale (Sum), run time medio (Avg), avg depth medio, max depth massima |
-| **Galleria** | cards view con nome file + sito + max depth |
+| **Configurazione e pesata** | muta, sottomuta e zavorra, per capire come ti stai pesando |
+| **Gas e consumi** | mix, pressioni, aria usata (`back_start - back_end`), RMV |
+| **Riassunto per tipo** | raggruppate per `dive_type`: conteggio, bottom time totale, medie |
+| **Galleria** | vista a schede |
 
-In Obsidian: click sul nome della vista sopra la tabella per cambiare. Sort
-cliccando sull'header colonna.
+Si cambia vista dal nome sopra la tabella, si ordina dall'intestazione di
+colonna.
 
-## Filtri ad hoc
+## Con Subsurface e affini
 
-Filtro globale: `type == "dive_log"`. Per filtri rapidi (es. profondità >
-20m) usa la UI di Obsidian sopra la tabella, oppure aggiungi una vista nel
-`.base`:
+Subsurface (o l'app del tuo computer) resta il posto giusto per scaricare e
+guardare il profilo: campionamento ogni pochi secondi, grafici, ricalcolo
+deco. Quello che quegli strumenti fanno male è la parte che conta dopo — la
+narrazione, i drill provati, le note sull'attrezzatura, le cose da ricordarsi
+la prossima volta.
+
+I due convivono senza attrito. Dal profilo prendi i numeri (`avg_depth`,
+`total_time`, temperature) e li riporti qui, a mano o con uno script:
+Subsurface esporta XML, CSV e UDDF, tutti formati leggibili senza penare, e
+convertirli in frontmatter è esattamente il genere di compito noioso che si
+delega volentieri a un assistente AI.
+
+## Personalizzare
+
+**Aggiungere un campo**: mettilo nel frontmatter e in entrambi i template,
+poi in `properties:` del `.base` con un `displayName`, poi nel `order:` delle
+viste dove lo vuoi vedere. Se ha senso sommarlo o mediarlo, aggiungilo anche
+in `summaries:`.
+
+**Filtrare al volo**: il filtro globale è `type == "dive_log"`. Per il resto
+usa la UI sopra la tabella, o scrivi una vista nuova:
 
 ```yaml
 - type: table
@@ -133,51 +152,36 @@ Filtro globale: `type == "dive_log"`. Per filtri rapidi (es. profondità >
     - max_depth
 ```
 
-## Aggiungere un campo nuovo
-
-1. Aggiungilo al frontmatter delle dive **e** a entrambi i template
-   (`Dive_Template_Rec.md` + `Dive_Template_Tec.md`).
-2. Aggiungilo in `properties:` del `Logbook.base` con un `displayName`.
-3. Aggiungilo al `order:` delle viste dove vuoi vederlo.
-4. (Opzionale) `summaries:` (Sum / Average / Max / Filled).
-
-## Formule personalizzate
-
-In `Logbook.base` sezione `formulas:`. Esempi attivi:
+**Formule**: stanno nella sezione `formulas:` del `.base` e si usano nelle
+viste come `formula.nome`.
 
 ```yaml
 formulas:
   max_depth_label: 'if(max_depth, max_depth + " m", "")'
   air_used:        'if(back_start && back_end, back_start - back_end, "")'
-  runtime_avg:     total_time   # alias per usare Sum + Average sullo stesso campo in una vista
+  runtime_avg:     total_time   # alias, vedi sotto
 ```
 
-Proteggi sempre con `if()` per gestire valori nulli. Le formule referenziano
-i campi del frontmatter per nome esatto. Nelle viste si usano come
-`formula.air_used`. **Trucco**: per applicare due aggregate diversi (es. Sum
-e Average) sullo stesso campo nella stessa vista, crea una formula alias
-(es. `runtime_avg: total_time`) e usala come secondo summary — `summaries`
-non accetta due chiavi uguali.
+Proteggile sempre con `if()`, altrimenti un campo vuoto sporca la colonna.
+Il trucco dell'alias serve quando vuoi due aggregati diversi (Sum e Average)
+sullo stesso campo nella stessa vista: `summaries` non accetta due chiavi
+uguali, quindi ne crei una copia con un altro nome.
 
-## Troubleshooting
+## Quando qualcosa non torna
 
-- **La dive non compare**: controlla `type: dive_log` nel frontmatter
-  (case-sensitive) e che il file sia in `Dives/`.
-- **Errore YAML**: wikilink fra virgolette doppie (`site: "[[...|...]]"`).
-  Senza virgolette YAML rompe.
-- **Summaries vuote**: la colonna deve essere numerica.
-  `total_time: 60` ✓, `total_time: "60 min"` ✗.
-- **GroupBy con duplicati apparenti**: stringhe diverse (case, spazi)
-  creano gruppi separati. Standardizzare i nomi sito.
-- **Obsidian Properties UI lenta / bug**: vedi warning sopra — niente
-  struct nested.
+- **L'immersione non compare**: manca `type: dive_log` (case-sensitive) o il
+  file non è in `Dives/`.
+- **Errore YAML**: quasi sempre un wikilink senza virgolette.
+- **Colonna senza totali**: c'è dentro una stringa. `total_time: 60` ✓,
+  `total_time: "60 min"` ✗.
+- **Lo stesso sito appare due volte nei raggruppamenti**: due scritture
+  diverse (maiuscole, spazi). Standardizza i nomi.
 
-## Note
+## Nota
 
-Questo strumento non calcola piani di decompressione, non sostituisce un
-computer subacqueo e non fa alcun controllo di sicurezza sui dati inseriti:
-è solo un registro strutturato. Usalo come diario, non come strumento di
-pianificazione immersioni.
+Questo è un registro, non uno strumento di pianificazione. Non calcola deco,
+non sostituisce il computer subacqueo e non controlla in alcun modo la
+sensatezza di quello che ci scrivi dentro.
 
 ## Licenza
 
