@@ -39,6 +39,7 @@ tank_volume: 12
 tank_type: alu
 tank_configuration: mono
 rmv: 15.8
+rmv_estimated: false
 computer: Suunto Zoop
 gf_set:
 gf_end:

@@ -39,7 +39,8 @@ tank_volume:          # litri per bombola (12 | 15 | 18 ...)
 tank_type:            # steel | alu
 tank_configuration: bibo  # mono | bibo
 rmv:                  # L/min a 1 ata, riferito al back gas (aria)
-computer: Mares Genius
+rmv_estimated: false  # true se l'RMV è ricostruito dai vincoli (gas switch, profilo non registrato): è una stima, non una misura
+computer:             # modello del computer subacqueo
 gf_set:                # gradient factors impostati (es. 40/85)
 gf_end:                # GF di superficie a fine dive (%)
 compass: false

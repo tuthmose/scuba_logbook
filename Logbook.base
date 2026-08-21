@@ -6,6 +6,7 @@ formulas:
   air_used: if(back_start && back_end, back_start - back_end, "")
   runtime_avg: total_time
   data_it: if(note.date, note.date.format("DD/MM/YYYY"), "")
+  rmv_misurato: if(rmv_estimated, "", rmv)
 properties:
   dive_number:
     displayName: "#"
@@ -71,6 +72,10 @@ properties:
     displayName: Run time medio (min)
   rmv:
     displayName: RMV (L/min)
+  rmv_estimated:
+    displayName: Stima?
+  formula.rmv_misurato:
+    displayName: RMV misurato (L/min)
 views:
   - type: table
     name: Tutte le dive
@@ -83,13 +88,14 @@ views:
       - avg_depth
       - total_time
       - rmv
+      - formula.rmv_misurato
       - weight_total
       - entry
     summaries:
       max_depth: Max
       avg_depth: Average
-      total_time: Sum
-      rmv: Average
+      total_time: Average
+      formula.rmv_misurato: Average
       weight_total: Average
       dive_number: Filled
   - type: table
@@ -103,10 +109,11 @@ views:
       - max_depth
       - total_time
       - rmv
+      - formula.rmv_misurato
       - visibility
     summaries:
       max_depth: Max
-      rmv: Average
+      formula.rmv_misurato: Average
       dive_number: Filled
   - type: table
     name: Condizioni
@@ -147,6 +154,12 @@ views:
       - back_end
       - formula.air_used
       - rmv
+      - rmv_estimated
+      - formula.rmv_misurato
+    summaries:
+      formula.air_used: Average
+      formula.rmv_misurato: Average
+      dive_number: Filled
   - type: table
     name: Riassunto per tipo
     groupBy:

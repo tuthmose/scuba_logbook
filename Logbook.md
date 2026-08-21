@@ -1,5 +1,5 @@
 ---
-type: scuba_logbook
+type: moc
 area: scuba
 tags:
   - scuba
@@ -8,7 +8,7 @@ tags:
 
 # Logbook
 
-Registro immersioni in markdown. Una nota per dive in [[Dives/]].
+Registro immersioni in markdown. Una nota per dive in `Dives/`.
 
 ## Convenzioni
 
@@ -25,6 +25,9 @@ Registro immersioni in markdown. Una nota per dive in [[Dives/]].
 > 4 = buona
 > 5 = automatica
 
+La stessa scala si usa nella sezione `## Drill` del body, nella forma
+`- nome_drill — 3/5, commento`.
+
 ## Template
 
 Due varianti — copia quella adatta al tipo di dive:
@@ -40,9 +43,15 @@ Vista live dal `.base`: ordinabile, filtrabile, con statistiche aggregate.
 
 ![[Logbook.base]]
 
-Nella cartella [[Dives/]] trovi una dive di esempio (`2025-01-01_Secca_Esempio.md`,
-sito e dati inventati) che mostra come compilare frontmatter e body — puoi
-cancellarla o tenerla come riferimento.
+Nella cartella `Dives/` trovi tre immersioni di esempio — **siti, nomi e dati
+sono inventati** — che coprono i tre casi tipici. Puoi cancellarle o tenerle
+come riferimento.
+
+| File | Cosa mostra |
+|---|---|
+| `2025-01-01_Secca_Esempio.md` | ricreativa semplice: il caso base, frontmatter e body minimi |
+| `2025-01-02_Cala_Esempio.md` | ripasso delle skill ricreative (maschera, recupero erogatore, pedagno): come si usa `## Drill` e perché il consumo di una sessione di addestramento non va confrontato con quello di una dive normale |
+| `2025-01-03_Relitto_Esempio.md` | addestramento tecnico con deco e gas switch (S-drill, V-drill, notox): sezione `## Tec` con piano deco contro soste effettive, e un RMV marcato come stima |
 
 ## Istruzioni complete
 

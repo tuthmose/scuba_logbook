@@ -43,8 +43,8 @@ il frontmatter è strutturato così. Serve il plugin core **Bases** attivo
 2. In Obsidian: `Apri cartella come vault` → seleziona `Logbook/`. Se hai già
    un vault tuo, copiaci dentro l'intera cartella.
 3. Apri `Logbook.md`: trovi la tabella generata da `Logbook.base`, con dentro
-   l'immersione di esempio.
-4. Quando sei pronto, cancella l'esempio e comincia con le tue.
+   le tre immersioni di esempio.
+4. Quando sei pronto, cancella gli esempi e comincia con le tue.
 
 ## Layout
 
@@ -64,6 +64,28 @@ Logbook/
 Nomi file `YYYY-MM-DD_Sito.md`, underscore al posto degli spazi, suffisso
 progressivo se in giornata ne fai più di una. `dive_number` è il progressivo
 di carriera: se tieni un libretto cartaceo, tienili allineati.
+
+## Le immersioni di esempio
+
+In `Dives/` ci sono tre immersioni inventate — siti, nomi e numeri non
+esistono — che coprono i tre casi in cui si compila una nota in modo diverso:
+
+- **`2025-01-01_Secca_Esempio.md`** — ricreativa semplice. Il caso base:
+  frontmatter compilato, body breve.
+- **`2025-01-02_Cala_Esempio.md`** — ripasso delle skill ricreative di base
+  (rimozione maschera, recupero erogatore, lancio del pedagno). Mostra come si
+  usa `## Drill` con l'autovalutazione 1-5, e perché conviene tenere a
+  logbook anche i numeri "strani" di una sessione di addestramento invece di
+  buttarli: fermi in acqua bassa a fare esercizi si consuma molto più che
+  nuotando, e saperlo serve.
+- **`2025-01-03_Relitto_Esempio.md`** — addestramento tecnico con deco e gas
+  switch (S-drill, V-drill, notox). Usa il template Tec, quindi la sezione
+  `## Tec` con **piano deco e soste effettive uno sotto l'altro** — il senso
+  della sezione è poterli confrontare a posteriori. È anche l'esempio di un
+  RMV marcato come stima (vedi sotto).
+
+Cancellale quando cominci con le tue: non servono a niente se non a mostrare
+com'è fatta una nota piena.
 
 ## Aggiungere un'immersione
 
@@ -89,6 +111,43 @@ Perché l'immersione compaia nelle viste servono almeno `type: dive_log`,
   strutturati (piano deco, drill, gas log) ci sono le sezioni nel body, come
   già fanno i template.
 
+## RMV, e quando è una stima
+
+`rmv` è il **Respiratory Minute Volume** in L/min normalizzato a 1 ata,
+riferito al back gas. È in litri e non in bar/min perché così non dipende
+dalla bombola: il SAC in bar/min si confronta solo con sé stesso, l'RMV lo
+confronti fra una 12 e una 15.
+
+```
+RMV = (bar consumati × litri per bombola × n. bombole) / (minuti × (prof. media / 10 + 1))
+```
+
+Due trappole:
+
+- **Se sul computer hai impostato un volume bombola diverso da quello reale**,
+  l'RMV che leggi è sbagliato in proporzione. Ricalcolalo a mano.
+- **Con un gas switch** il conto va fatto sulla sola parte respirata dal back
+  gas: togli dal tempo totale i minuti passati sullo stage e ricalcola la
+  profondità media di quel solo segmento. Dividere per il tempo totale
+  dell'immersione dà un numero che non descrive niente.
+
+Quando l'RMV non è misurato ma **ricostruito dai vincoli** — profilo non
+campionato, gas switch, pressioni lette a memoria — metti
+`rmv_estimated: true`. Serve a questo: nel `.base` la formula
+
+```yaml
+rmv_misurato: 'if(rmv_estimated, "", rmv)'
+```
+
+svuota la casella nella colonna *RMV misurato*, così le medie aggregate
+restano fatte di sole misure e non si sporcano con le ricostruzioni. La
+colonna `rmv` continua a mostrare tutti i valori, stime incluse: le vedi, ma
+non entrano nelle statistiche. È lo stesso motivo per cui in un quaderno di
+laboratorio un dato interpolato si segna come tale.
+
+`2025-01-03_Relitto_Esempio.md` mostra il caso completo, con il calcolo e la
+sua sensibilità scritti nel body.
+
 ## Le viste del `Logbook.base`
 
 | Vista | Per cosa |
@@ -97,7 +156,7 @@ Perché l'immersione compaia nelle viste servono almeno `type: dive_log`,
 | **Per sito** | raggruppate per spot, con statistiche per posto |
 | **Condizioni** | meteo, mare, visibilità, temperature |
 | **Configurazione e pesata** | muta, sottomuta e zavorra, per capire come ti stai pesando |
-| **Gas e consumi** | mix, pressioni, aria usata (`back_start - back_end`), RMV |
+| **Gas e consumi** | mix, pressioni, aria usata (`back_start - back_end`), RMV misurato e stimato |
 | **Riassunto per tipo** | raggruppate per `dive_type`: conteggio, bottom time totale, medie |
 | **Galleria** | vista a schede |
 
