@@ -65,7 +65,7 @@ _Waypoints, bearings, depths, tempi parziali (formato libero o tabella)._
 
 ## Drill
 
-_Drill o esercizi praticati (long_hose, mask_drill, gas_switch, smb_deploy, v_drill, S-drill, helicopter, backfin, frog_kick, valve manipulation, ...)._
+_Drill o esercizi praticati (long_hose, mask_drill, gas_switch, notox, smb_deploy, v_drill, S-drill, helicopter, backfin, frog_kick, valve manipulation, ...)._
 
 ## Animali e note
 
