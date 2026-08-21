@@ -64,7 +64,8 @@ il punto della sezione è proprio poter confrontare i due.
 
 Configurazione bibo 2×12 L acciaio ad aria, stage ean50 da 7 L per la deco.
 Piano: 20 minuti di fondo sul relitto a 40 m, risalita a 21 m, switch su
-ean50, deco fino in superficie.
+ean50, deco fino in superficie. Lo switch si esegue con la sequenza **NOTOX**,
+riportata per esteso in `## Drill`.
 
 Eseguito: fondo rispettato, switch fatto con un minuto di ritardo perché la
 corrente ha allungato il traverso di rientro alla cima. Un minuto in più alla
@@ -109,9 +110,23 @@ sosta dei 6 m, per lo stesso motivo.
 - v_drill — 3/5, manipolazione rubinetteria del bibo con guanti secchi: la
   destra è a posto, la sinistra richiede ancora due tentativi per agganciare
   il volantino
-- notox — 4/5, procedura di gas switch a due: verifica dell'etichetta dello
-  stage, della MOD e della pressione, conferma esplicita del compagno prima
-  di respirarci. Eseguita per intero, solo in ritardo sul run time
+- notox — 4/5, procedura di gas switch a due. Eseguita per intero, solo in
+  ritardo sul run time perché la corrente ha allungato il traverso
+
+> [!info] NOTOX — la sequenza del gas switch
+> - **N** — *Note your name and the maximum depth on the cylinder labels*:
+>   leggi sull'etichetta della bombola il nome del gas e la MOD
+> - **O** — *Observe your actual depth and compare to the MOD*: confronta la
+>   profondità a cui sei con la MOD appena letta
+> - **T** — *Turn on the valve, check the cylinder pressure*: apri il
+>   rubinetto dello stage e controlla la pressione
+> - **O** — *Orient the second stage by pulling it from the retaining bands*:
+>   libera il secondo stadio dagli elastici e orientalo
+> - **X** — *eXamine your team mates*: segui la frusta dalla loro bocca fino
+>   alla bombola, e verifica che stiano respirando dallo stage giusto
+>
+> Gli ultimi due passi sono quelli che si saltano quando si va di fretta, ed
+> è esattamente il motivo per cui la procedura si fa in due.
 
 ## Animali e note
 
